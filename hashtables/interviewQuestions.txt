@@ -1,0 +1,23 @@
+1) Hashing functions
+
+Hashing functions take input of arbitrary size, perform some computation on input, and produce a fixed-size output. 
+
+2) Collision resolution
+
+Collisions occur when a hashing functions maps an input to same output as another value. Linked Lists can correct this issue by creating a singly-linked list at the output value to store an arbitrary amount of data.
+
+3) Performance of basic hash table operations
+
+Hash tables can search, insert, and delete all in constant time O(1).
+
+4) Load factor
+
+Number of items in hash table/ total number of slots. Linear probing allows for a max load factor of 1 while collision resolution allows for a load factor greater than 1.
+
+5) Automatic resizing
+
+To minimize the probability of collisions, automatic resizing is employed. Even though it's a costly operation, the average time complexity is still O(1) even with resizing.
+
+6) Various use cases for hash tables
+
+Caches, records, digital phone book, DNS management systems, library system, lookup tables, etc.

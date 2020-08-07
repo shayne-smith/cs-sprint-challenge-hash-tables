@@ -4,11 +4,46 @@ class Ticket:
         self.source = source
         self.destination = destination
 
-
 def reconstruct_trip(tickets, length):
-    """
-    YOUR CODE HERE
-    """
-    # Your code here
+    cache = {}
 
-    return route
+    # find starting flight
+    for k, t in enumerate(tickets):
+        if t.source == "NONE":
+            cache[t.source] = t.destination
+            tickets.pop(k)
+
+    # Build cache with connecting flights info
+    i = 0
+    while len(tickets) > 0:
+        for k, t in enumerate(tickets):
+            if t.source in cache.values():
+                cache[t.source] = t.destination
+                tickets.pop(k)
+
+    results = list(cache.values())
+
+    return results
+
+tickets = [
+    Ticket("PIT", "ORD"),
+    Ticket("XNA", "CID"),
+    Ticket("SFO", "BHM"),
+    Ticket("FLG", "XNA"),
+    Ticket("NONE", "LAX"),
+    Ticket("LAX", "SFO"),
+    Ticket("CID", "SLC" ),
+    Ticket("ORD", "NONE" ),
+    Ticket("SLC", "PIT" ),
+    Ticket("BHM", "FLG" )
+]
+
+print(reconstruct_trip(tickets, 10))
+
+ticket_1 = Ticket("NONE", "PDX")
+ticket_2 = Ticket("PDX", "DCA")
+ticket_3 = Ticket("DCA", "NONE")
+
+tickets = [ticket_1, ticket_2, ticket_3]
+
+print(reconstruct_trip(tickets, 3))
