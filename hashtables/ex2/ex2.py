@@ -6,22 +6,35 @@ class Ticket:
 
 def reconstruct_trip(tickets, length):
     cache = {}
+    tickets_table = {}
+
+    # build dictionary from tickets array
+    for k, v in enumerate(tickets):
+        tickets_table[k] = v
 
     # find starting flight
     for k, t in enumerate(tickets):
         if t.source == "NONE":
             cache[t.source] = t.destination
-            tickets.pop(k)
 
-    # Build cache with connecting flights info
+    # build cache with connecting flights info
     i = 0
-    while len(tickets) > 0:
-        for k, t in enumerate(tickets):
-            if t.source in cache.values():
-                cache[t.source] = t.destination
-                tickets.pop(k)
+    while len(cache) < length - 1:
+
+        # special case when i reaches end of tickets_table
+        if i == length:
+            i = 0
+
+        # find next flight based on last destination in cache
+        if tickets_table[i].source in cache.values():
+            cache[tickets_table[i].source] = tickets_table[i].destination
+            i += 1
+        
+        # increment through tickets_table
+        else: i += 1
 
     results = list(cache.values())
+    results.append("NONE")
 
     return results
 
